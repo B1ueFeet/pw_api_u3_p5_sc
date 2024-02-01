@@ -33,8 +33,8 @@ public class EstudianteRepoImpl implements IEstudianteRepo {
 		Query query = this.manager
 				.createQuery("UPDATE Estudiante e SET e.nombre = :valor1, e.apellido = :valor2 WHERE e.id = :valor3");
 		query.setParameter("valor1", nombre);
-		query.setParameter("valor1", apellido);
-		query.setParameter("valor1", id);
+		query.setParameter("valor2", apellido);
+		query.setParameter("valor3", id);
 		query.executeUpdate();
 	}
 
