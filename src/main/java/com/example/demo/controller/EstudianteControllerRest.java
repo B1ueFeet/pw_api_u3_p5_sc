@@ -59,7 +59,7 @@ public class EstudianteControllerRest {
 	}
 
 	@GetMapping(path = "/buscar/todos")
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar/todos
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscar/todos?gen=M
 	public List<Estudiante> buscarTodos(@RequestParam String gen) {
 		return this.estudianteService.buscarTodos(gen);
 	}
