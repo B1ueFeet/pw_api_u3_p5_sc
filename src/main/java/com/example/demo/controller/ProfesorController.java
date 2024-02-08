@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,37 +26,37 @@ public class ProfesorController {
 
 	// CAPACIDADES
 
-	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/profesores?gen=M
 	public List<Profesor> buscarTodos(@RequestParam(defaultValue = "M", required = false)String gen) {
 		return this.profesorService.buscarTodos(gen);
 	}
 	
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/profesores/1
 	public Profesor buscar(@PathVariable Integer id) {
 		return this.profesorService.buscar(id);
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE) 
 	// http://localhost:8080/API/v1.0/Matricula/profesores
 	public void guardar(@RequestBody Profesor profesor) {
 		this.profesorService.guardar(profesor);
 	}
 
-	@PutMapping(path = "/{id}")
+	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/profesores/i
 	public void actualizar(@RequestBody Profesor profesor, @PathVariable Integer id) {
 		this.profesorService.actualizar(profesor);
 	}
 
-	@PatchMapping(path = "/{id}")
+	@PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/profesores/1
 	public void actualizarParcial(@RequestBody Profesor profesor, @PathVariable Integer id) {
 		this.profesorService.actualizarParcial(profesor.getNombre(), profesor.getApellido(), id);
 	}
 
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/{id}" ,consumes = MediaType.ALL_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/profesores/1
 	public void eliminar(@PathVariable Integer id) {
 		this.profesorService.borrar(id);

@@ -54,7 +54,7 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(250).body(est);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE) 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
