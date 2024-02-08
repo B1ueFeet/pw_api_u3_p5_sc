@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,19 +33,28 @@ public class EstudianteControllerRest {
 
 	// CAPACIDADES
 
-	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes?gen=M
-	public List<Estudiante> buscarTodos(@RequestParam(defaultValue = "M", required = false) String gen) {
-		return this.estudianteService.buscarTodos(gen);
+	public ResponseEntity<List<Estudiante>> buscarTodos(
+			@RequestParam(defaultValue = "M", required = false) String gen) {
+		List<Estudiante> lista = this.estudianteService.buscarTodos(gen);
+
+		HttpHeaders cabecera = new HttpHeaders();
+
+		cabecera.add("mensaje_242", "Lista consultada con filtros de manera satisfactoria");
+
+		return new ResponseEntity<>(lista, cabecera, 242);
 	}
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = "application/xml")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	public Estudiante buscar(@PathVariable Integer id) {
-		return this.estudianteService.buscar(id);
+	public ResponseEntity<Estudiante> buscar(@PathVariable Integer id) {
+
+		Estudiante est = this.estudianteService.buscar(id);
+		return ResponseEntity.status(250).body(est);
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
