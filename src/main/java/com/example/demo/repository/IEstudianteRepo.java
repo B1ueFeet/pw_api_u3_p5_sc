@@ -13,7 +13,10 @@ public interface IEstudianteRepo {
 	public void actualizarParcial(String nombre, String apellido, Integer id);
 
 	public Estudiante seleccionar(Integer id);
+
 	public List<Estudiante> getAll(String gen);
+
+	public List<Estudiante> getAllTO();
 
 	public void eliminar(Integer id);
 

@@ -1,10 +1,12 @@
 package com.example.demo.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.modelo.Estudiante;
+import com.example.demo.service.to.EstudianteTO;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -61,5 +63,15 @@ public class EstudianteRepoImpl implements IEstudianteRepo {
 		var lista = query.getResultList();
 		return lista;
 	}
+
+	@Override
+	public List<Estudiante> getAllTO() {
+		TypedQuery<Estudiante> query = this.manager.createQuery("SELECT e FROM Estudiante e", Estudiante.class);
+		var lista = query.getResultList();
+
+		return lista;
+	}
+
+
 
 }
