@@ -13,7 +13,7 @@ public interface IEstudianteService {
 
 	public void actualizarParcial(String nombre, String apellido, Integer id);
 
-	public Estudiante buscar(Integer id);
+	public EstudianteTO buscar(Integer id);
 
 	public List<Estudiante> buscarTodos(String gen);
 

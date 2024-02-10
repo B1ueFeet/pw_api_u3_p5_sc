@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,14 +51,20 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE, path = "/temp")
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/temp")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes
 	public ResponseEntity<List<EstudianteTO>> buscarTodosHateoas() {
 		List<EstudianteTO> lista = this.estudianteService.buscarTodosTO();
+		for (EstudianteTO esTO : lista) {
+			Link link = linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(esTO.getId()))
+					.withRel("materias");
+			esTO.add(link);
+		}
+
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes?gen=M
 	public ResponseEntity<List<Estudiante>> buscarTodos(
 			@RequestParam(defaultValue = "M", required = false) String gen) {
@@ -69,9 +79,11 @@ public class EstudianteControllerRest {
 
 	@GetMapping(path = "/{id}", produces = "application/xml")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	public ResponseEntity<Estudiante> buscar(@PathVariable Integer id) {
+	public ResponseEntity<EstudianteTO> buscar(@PathVariable Integer id) {
 
-		Estudiante est = this.estudianteService.buscar(id);
+		EstudianteTO est = this.estudianteService.buscar(id);
+		est.add(linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(id)).withRel("materias"));
+		est.add(linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(id)).withSelfRel());
 		return ResponseEntity.status(250).body(est);
 	}
 
