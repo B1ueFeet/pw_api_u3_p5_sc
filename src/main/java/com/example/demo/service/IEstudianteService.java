@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Estudiante;
+import com.example.demo.service.to.EstudianteDTO;
 import com.example.demo.service.to.EstudianteTO;
 
 public interface IEstudianteService {
@@ -13,7 +14,8 @@ public interface IEstudianteService {
 
 	public void actualizarParcial(String nombre, String apellido, Integer id);
 
-	public EstudianteTO buscar(Integer id);
+	public EstudianteDTO buscarDTO(Integer id);
+	public EstudianteTO buscarTO(Integer id);
 
 	public List<Estudiante> buscarTodos(String gen);
 

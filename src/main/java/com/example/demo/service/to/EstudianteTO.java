@@ -15,6 +15,11 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 	private String apellido;
 	private String genero;
 	private LocalDateTime fechaNacimiento;
+	private String direccion;
+	private String ciudad;
+	private String parroquia;
+	private String pais;
+	private String celular;
 
 	public Integer getId() {
 		return id;
@@ -54,6 +59,46 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 
 	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getParroquia() {
+		return parroquia;
+	}
+
+	public void setParroquia(String parroquia) {
+		this.parroquia = parroquia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	@Override

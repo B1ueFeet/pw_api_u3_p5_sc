@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.service.IEstudianteService;
 import com.example.demo.service.IMateriaService;
+import com.example.demo.service.to.EstudianteDTO;
 import com.example.demo.service.to.EstudianteTO;
 import com.example.demo.service.to.MateriaTO;
 
@@ -79,11 +80,19 @@ public class EstudianteControllerRest {
 
 	@GetMapping(path = "/{id}", produces = "application/xml")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	public ResponseEntity<EstudianteTO> buscar(@PathVariable Integer id) {
+	public ResponseEntity<EstudianteDTO> buscar(@PathVariable Integer id) {
 
-		EstudianteTO est = this.estudianteService.buscar(id);
+		EstudianteDTO est = this.estudianteService.buscarDTO(id);
+		est.add(linkTo(methodOn(EstudianteControllerRest.class).buscarCompleto(id)).withSelfRel());
+		return ResponseEntity.status(250).body(est);
+	}
+	
+	@GetMapping(path = "/{id}/info", produces = "application/xml")
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
+	public ResponseEntity<EstudianteTO> buscarCompleto(@PathVariable Integer id) {
+
+		EstudianteTO est = this.estudianteService.buscarTO(id);
 		est.add(linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(id)).withRel("materias"));
-		est.add(linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(id)).withSelfRel());
 		return ResponseEntity.status(250).body(est);
 	}
 

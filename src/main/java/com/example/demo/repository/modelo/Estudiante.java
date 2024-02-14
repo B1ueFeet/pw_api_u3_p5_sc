@@ -3,8 +3,6 @@ package com.example.demo.repository.modelo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,6 +34,21 @@ public class Estudiante {
 
 	@Column(name = "estu_fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
+
+	@Column(name = "estu_direccion")
+	private String direccion;
+
+	@Column(name = "estu_ciudad")
+	private String ciudad;
+
+	@Column(name = "estu_parroquia")
+	private String parroquia;
+
+	@Column(name = "estu_pais")
+	private String pais;
+
+	@Column(name = "estu_celular")
+	private String celular;
 
 	// RELACIONES
 
@@ -89,6 +102,46 @@ public class Estudiante {
 
 	public void setMaterias(List<Materia> materias) {
 		this.materias = materias;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getParroquia() {
+		return parroquia;
+	}
+
+	public void setParroquia(String parroquia) {
+		this.parroquia = parroquia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	// TOSTRING

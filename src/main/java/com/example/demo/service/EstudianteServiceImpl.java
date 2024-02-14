@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.IEstudianteRepo;
 import com.example.demo.repository.modelo.Estudiante;
+import com.example.demo.service.to.EstudianteDTO;
 import com.example.demo.service.to.EstudianteTO;
 
 @Service
@@ -34,9 +35,15 @@ public class EstudianteServiceImpl implements IEstudianteService {
 	}
 
 	@Override
-	public EstudianteTO buscar(Integer id) {
+	public EstudianteDTO buscarDTO(Integer id) {
 		// TODO Auto-generated method stub
-		return  this.convert(this.estudianteRepo.seleccionar(id));
+		return this.convertDTO(this.estudianteRepo.seleccionar(id));
+	}
+
+	@Override
+	public EstudianteTO buscarTO(Integer id) {
+		// TODO Auto-generated method stub
+		return this.convertTO(this.estudianteRepo.seleccionar(id));
 	}
 
 	@Override
@@ -57,16 +64,30 @@ public class EstudianteServiceImpl implements IEstudianteService {
 
 		List<EstudianteTO> listaTO = new ArrayList<>();
 		for (Estudiante estu : lista) {
-			listaTO.add(this.convert(estu));
+			listaTO.add(this.convertTO(estu));
 		}
 		return listaTO;
 	}
 
-	private EstudianteTO convert(Estudiante est) {
+	private EstudianteTO convertTO(Estudiante est) {
 		EstudianteTO estTO = new EstudianteTO();
 		estTO.setApellido(est.getApellido());
 		estTO.setFechaNacimiento(est.getFechaNacimiento());
 		estTO.setGenero(est.getGenero());
+		estTO.setNombre(est.getNombre());
+		estTO.setId(est.getId());
+		estTO.setCelular(est.getCelular());
+		estTO.setCiudad(est.getCiudad());
+		estTO.setDireccion(est.getDireccion());
+		estTO.setPais(est.getPais());
+		estTO.setParroquia(est.getParroquia());
+
+		return estTO;
+	}
+
+	private EstudianteDTO convertDTO(Estudiante est) {
+		EstudianteDTO estTO = new EstudianteDTO();
+		estTO.setApellido(est.getApellido());
 		estTO.setNombre(est.getNombre());
 		estTO.setId(est.getId());
 		return estTO;
