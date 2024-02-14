@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,30 +51,15 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/temp")
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes
-	public ResponseEntity<List<EstudianteTO>> buscarTodosHateoas() {
-		List<EstudianteTO> lista = this.estudianteService.buscarTodosTO();
-		for (EstudianteTO esTO : lista) {
-			Link link = linkTo(methodOn(EstudianteControllerRest.class).consultarMateriasPorId(esTO.getId()))
-					.withRel("materias");
-			esTO.add(link);
-		}
-
-		return ResponseEntity.status(HttpStatus.OK).body(lista);
-	}
-
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/estudiantes?gen=M
-	public ResponseEntity<List<Estudiante>> buscarTodos(
+	// http://localhost:8080/API/v1.0/Matricula/estudiantes
+	public ResponseEntity<List<EstudianteDTO>> buscarTodos(
 			@RequestParam(defaultValue = "M", required = false) String gen) {
-		List<Estudiante> lista = this.estudianteService.buscarTodos(gen);
-
-		HttpHeaders cabecera = new HttpHeaders();
-
-		cabecera.add("mensaje_242", "Lista consultada con filtros de manera satisfactoria");
-
-		return new ResponseEntity<>(lista, cabecera, 242);
+		List<EstudianteDTO> lista = this.estudianteService.buscarTodos(gen);
+		for (EstudianteDTO est : lista) {
+			est.add(linkTo(methodOn(EstudianteControllerRest.class).buscarCompleto(est.getId())).withSelfRel());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
 	@GetMapping(path = "/{id}", produces = "application/xml")
@@ -86,7 +70,7 @@ public class EstudianteControllerRest {
 		est.add(linkTo(methodOn(EstudianteControllerRest.class).buscarCompleto(id)).withSelfRel());
 		return ResponseEntity.status(250).body(est);
 	}
-	
+
 	@GetMapping(path = "/{id}/info", produces = "application/xml")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	public ResponseEntity<EstudianteTO> buscarCompleto(@PathVariable Integer id) {

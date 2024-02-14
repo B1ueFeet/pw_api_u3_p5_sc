@@ -52,23 +52,6 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		this.estudianteRepo.eliminar(id);
 	}
 
-	@Override
-	public List<Estudiante> buscarTodos(String gen) {
-		// TODO Auto-generated method stub
-		return this.estudianteRepo.getAll(gen);
-	}
-
-	@Override
-	public List<EstudianteTO> buscarTodosTO() {
-		var lista = this.estudianteRepo.getAllTO();
-
-		List<EstudianteTO> listaTO = new ArrayList<>();
-		for (Estudiante estu : lista) {
-			listaTO.add(this.convertTO(estu));
-		}
-		return listaTO;
-	}
-
 	private EstudianteTO convertTO(Estudiante est) {
 		EstudianteTO estTO = new EstudianteTO();
 		estTO.setApellido(est.getApellido());
@@ -92,6 +75,16 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		estTO.setId(est.getId());
 		return estTO;
 
+	}
+
+	@Override
+	public List<EstudianteDTO> buscarTodos(String gen) {
+		var lista = this.estudianteRepo.getAll(gen);
+		List<EstudianteDTO> listaDTO = new ArrayList<>();
+		for (Estudiante estu : lista) {
+			listaDTO.add(this.convertDTO(estu));
+		}
+		return listaDTO;
 	}
 
 }

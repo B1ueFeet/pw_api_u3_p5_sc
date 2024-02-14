@@ -15,11 +15,10 @@ public interface IEstudianteService {
 	public void actualizarParcial(String nombre, String apellido, Integer id);
 
 	public EstudianteDTO buscarDTO(Integer id);
+
 	public EstudianteTO buscarTO(Integer id);
 
-	public List<Estudiante> buscarTodos(String gen);
-
-	public List<EstudianteTO> buscarTodosTO();
+	public List<EstudianteDTO> buscarTodos(String gen);
 
 	public void borrar(Integer id);
 
