@@ -17,15 +17,15 @@ public class EstudianteServiceImpl implements IEstudianteService {
 	private IEstudianteRepo estudianteRepo;
 
 	@Override
-	public void guardar(Estudiante estudiante) {
+	public void guardar(EstudianteTO estudiante) {
 		// TODO Auto-generated method stub
-		this.estudianteRepo.insertar(estudiante);
+		this.estudianteRepo.insertar(this.convert(estudiante));
 	}
 
 	@Override
-	public void actualizar(Estudiante estudiante) {
+	public void actualizar(EstudianteTO estudiante) {
 		// TODO Auto-generated method stub
-		this.estudianteRepo.actualizar(estudiante);
+		this.estudianteRepo.actualizar(this.convert(estudiante));
 	}
 
 	@Override
@@ -74,6 +74,21 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		estTO.setNombre(est.getNombre());
 		estTO.setId(est.getId());
 		return estTO;
+
+	}
+	private Estudiante convert(EstudianteTO esto) {
+		Estudiante est = new Estudiante();
+		est.setApellido(esto.getApellido());
+		est.setFechaNacimiento(esto.getFechaNacimiento());
+		est.setGenero(esto.getGenero());
+		est.setNombre(esto.getNombre());
+		est.setId(esto.getId());
+		est.setCelular(esto.getCelular());
+		est.setCiudad(esto.getCiudad());
+		est.setDireccion(esto.getDireccion());
+		est.setPais(esto.getPais());
+		est.setParroquia(esto.getParroquia());
+		return est;
 
 	}
 

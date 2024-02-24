@@ -6,10 +6,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,6 +34,7 @@ import com.example.demo.service.to.MateriaTO;
 
 @RestController // SERVICIO
 @RequestMapping(path = "/estudiantes")
+@CrossOrigin()
 public class EstudianteControllerRest {
 
 	@Autowired
@@ -62,7 +63,7 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
-	@GetMapping(path = "/{id}", produces = "application/xml")
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	public ResponseEntity<EstudianteDTO> buscar(@PathVariable Integer id) {
 
@@ -71,7 +72,7 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(250).body(est);
 	}
 
-	@GetMapping(path = "/{id}/info", produces = "application/xml")
+	@GetMapping(path = "/{id}/info", produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
 	public ResponseEntity<EstudianteTO> buscarCompleto(@PathVariable Integer id) {
 
@@ -80,15 +81,15 @@ public class EstudianteControllerRest {
 		return ResponseEntity.status(250).body(est);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes
-	public void guardar(@RequestBody Estudiante estudiante) {
+	public void guardar(@RequestBody EstudianteTO estudiante) {
 		this.estudianteService.guardar(estudiante);
 	}
 
 	@PutMapping(path = "/{id}")
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/1
-	public void actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
+	public void actualizar(@RequestBody EstudianteTO estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		this.estudianteService.actualizar(estudiante);
 	}
