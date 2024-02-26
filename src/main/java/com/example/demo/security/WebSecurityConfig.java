@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,24 +10,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class WebSecurityConfig {
-
 	@Autowired
-	private AuthEntryPointJwt unauthorizedHandlerl;
+	private AuthEntryPointJwt unAuthorizedHandler;
 
 	@Bean
-	public AuthTokenFilter authenticationJwtFilter() {
+	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandlerl).and()
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unAuthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.anyRequest().authenticated();
 
-		http.addFilterBefore(authenticationJwtFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
-
 }

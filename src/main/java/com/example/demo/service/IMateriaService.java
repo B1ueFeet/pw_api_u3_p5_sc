@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.demo.service.to.MateriaTO;
 
 public interface IMateriaService {
-
-	public List<MateriaTO> buscarMateriasPorId(Integer id);
+	public List<MateriaTO> buscarPorIdMateria(Integer id);
 
 }

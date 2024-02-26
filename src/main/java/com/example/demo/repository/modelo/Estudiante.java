@@ -3,59 +3,49 @@ package com.example.demo.repository.modelo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "Estudiante")
+@Table(name = "estudiante")
 public class Estudiante {
 
 	@Id
-	@SequenceGenerator(name = "seq_estudiante", sequenceName = "seq_estudiante", allocationSize = 1)
 	@GeneratedValue(generator = "seq_estudiante", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "seq_estudiante", sequenceName = "seq_estudiante", allocationSize = 1)
 	@Column(name = "estu_id")
 	private Integer id;
-
 	@Column(name = "estu_nombre")
 	private String nombre;
-
 	@Column(name = "estu_apellido")
 	private String apellido;
-
 	@Column(name = "estu_genero")
 	private String genero;
-
 	@Column(name = "estu_fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
-
+	@Column(name = "estu_cedula")
+	private String cedula;
+	@Column(name = "estu_edad")
+	private Integer edad;
+	@Column(name = "estu_nacionalidad")
+	private String nacionalidad;
 	@Column(name = "estu_direccion")
 	private String direccion;
+	@Column(name = "estu_estado_civil")
+	private String estadoCivil;
+	@Column(name = "estu_lugar_nacimiento")
+	private String lugarNacimiento;
 
-	@Column(name = "estu_ciudad")
-	private String ciudad;
-
-	@Column(name = "estu_parroquia")
-	private String parroquia;
-
-	@Column(name = "estu_pais")
-	private String pais;
-
-	@Column(name = "estu_celular")
-	private String celular;
-
-	// RELACIONES
-
-	@OneToMany(mappedBy = "estudiante", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "estudiante")
 	private List<Materia> materias;
 
-	// SETTER & GETTER
+	// SET Y GET
 	public Integer getId() {
 		return id;
 	}
@@ -104,6 +94,30 @@ public class Estudiante {
 		this.materias = materias;
 	}
 
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
 	public String getDireccion() {
 		return direccion;
 	}
@@ -112,43 +126,20 @@ public class Estudiante {
 		this.direccion = direccion;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public String getEstadoCivil() {
+		return estadoCivil;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
-	public String getParroquia() {
-		return parroquia;
+	public String getLugarNacimiento() {
+		return lugarNacimiento;
 	}
 
-	public void setParroquia(String parroquia) {
-		this.parroquia = parroquia;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	// TOSTRING
-	@Override
-	public String toString() {
-		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero
-				+ ", fechaNacimiento=" + fechaNacimiento + "]";
+	public void setLugarNacimiento(String lugarNacimiento) {
+		this.lugarNacimiento = lugarNacimiento;
 	}
 
 }

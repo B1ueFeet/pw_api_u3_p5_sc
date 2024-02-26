@@ -4,7 +4,8 @@ import java.util.List;
 
 import com.example.demo.repository.modelo.Materia;
 
-public interface IMateriaRepo {
+public interface IMateriaRepository {
+	
+	public List<Materia> seleccionarPorIdEstudiante(Integer id);
 
-	public List<Materia> seleccionar(Integer id);
 }

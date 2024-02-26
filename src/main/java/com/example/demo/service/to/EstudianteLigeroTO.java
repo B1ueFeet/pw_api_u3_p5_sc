@@ -4,21 +4,20 @@ import java.io.Serializable;
 
 import org.springframework.hateoas.RepresentationModel;
 
-public class EstudianteDTO extends RepresentationModel<EstudianteDTO> implements Serializable {
+public class EstudianteLigeroTO extends RepresentationModel<EstudianteLigeroTO> implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 816016149027974469L;
+	private static final long serialVersionUID = 3L;
+
 	private Integer id;
+
 	private String nombre;
+
 	private String apellido;
 
-	@Override
-	public String toString() {
-		return "EstudianteDTO [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "]";
-	}
-
+	// Set y get
 	public Integer getId() {
 		return id;
 	}
@@ -43,4 +42,7 @@ public class EstudianteDTO extends RepresentationModel<EstudianteDTO> implements
 		this.apellido = apellido;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

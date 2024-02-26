@@ -2,21 +2,19 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.repository.modelo.Profesor;
 
-public interface IprofesorService {
+public interface IProfesorService {
 
-	
 	public void guardar(Profesor profesor);
 
 	public void actualizar(Profesor profesor);
 
-	public void actualizarParcial(String nombre, String apellido, Integer id);
+	public void actualizarParcial(String asignatura, Integer id);
 
-	public Profesor buscar(Integer id);
+	public Profesor consultar(Integer id);
 
-	public List<Profesor> buscarTodos(String gen);
+	public List<Profesor> consultarTodos(String genero);
 
 	public void borrar(Integer id);
 }

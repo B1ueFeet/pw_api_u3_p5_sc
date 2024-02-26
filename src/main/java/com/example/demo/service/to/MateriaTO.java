@@ -7,11 +7,15 @@ public class MateriaTO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3563295222331324897L;
+	private static final long serialVersionUID = 2L;
 
 	private Integer id;
+
 	private String nombre;
-	private Integer creditos;
+
+	private Integer credito;
+
+	// SET Y GET
 
 	public Integer getId() {
 		return id;
@@ -29,21 +33,16 @@ public class MateriaTO implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Integer getCreditos() {
-		return creditos;
+	public Integer getCredito() {
+		return credito;
 	}
 
-	public void setCreditos(Integer creditos) {
-		this.creditos = creditos;
+	public void setCredito(Integer credito) {
+		this.credito = credito;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "MateriaTO [id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + "]";
 	}
 
 }

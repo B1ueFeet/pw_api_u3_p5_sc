@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.IMateriaRepo;
+import com.example.demo.repository.IMateriaRepository;
 import com.example.demo.repository.modelo.Materia;
 import com.example.demo.service.to.MateriaTO;
 
@@ -14,25 +14,24 @@ import com.example.demo.service.to.MateriaTO;
 public class MateriaServiceImpl implements IMateriaService {
 
 	@Autowired
-	private IMateriaRepo materiaRepo;
+	private IMateriaRepository iMateriaRepository;
 
 	@Override
-	public List<MateriaTO> buscarMateriasPorId(Integer id) {
-		var lista = this.materiaRepo.seleccionar(id);
-		List<MateriaTO> listaTO = new ArrayList<>();
+	public List<MateriaTO> buscarPorIdMateria(Integer id) {
+		// TODO Auto-generated method stub
+		List<Materia> lista = this.iMateriaRepository.seleccionarPorIdEstudiante(id);
+		List<MateriaTO> listaFinal = new ArrayList<>();
 		for (Materia mat : lista) {
-			listaTO.add(this.convert(mat));
+			listaFinal.add(this.convertir(mat));
 		}
-		return listaTO;
+		return listaFinal;
 	}
 
-	private MateriaTO convert(Materia mat) {
-		MateriaTO maTO = new MateriaTO();
-		maTO.setCreditos(mat.getCreditos());
-		maTO.setId(mat.getId());
-		maTO.setNombre(mat.getNombre());
-		return maTO;
-
+	private MateriaTO convertir(Materia materia) {
+		MateriaTO materiaTO = new MateriaTO();
+		materiaTO.setCredito(materia.getCredito());
+		materiaTO.setId(materia.getId());
+		materiaTO.setNombre(materia.getNombre());
+		return materiaTO;
 	}
-
 }

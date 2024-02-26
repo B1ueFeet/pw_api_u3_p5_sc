@@ -3,7 +3,10 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,50 +19,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.repository.modelo.Profesor;
-import com.example.demo.service.IprofesorService;
+import com.example.demo.service.IProfesorService;
 
-@RestController // SERVICIO
+@RestController
 @RequestMapping(path = "/profesores")
-public class ProfesorController {
+public class ProfesorControllerRestFul {
+
 	@Autowired
-	private IprofesorService profesorService;
+	private IProfesorService profesorService;
 
-	// CAPACIDADES
-
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/profesores?gen=M
-	public List<Profesor> buscarTodos(@RequestParam(defaultValue = "M", required = false)String gen) {
-		return this.profesorService.buscarTodos(gen);
-	}
-	
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/profesores/1
-	public Profesor buscar(@PathVariable Integer id) {
-		return this.profesorService.buscar(id);
-	}
-
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE) 
-	// http://localhost:8080/API/v1.0/Matricula/profesores
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void guardar(@RequestBody Profesor profesor) {
 		this.profesorService.guardar(profesor);
 	}
 
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Profesor>> consultarTodos(@RequestParam(required = false, defaultValue = "M") String genero) {
+		List<Profesor> lista = this.profesorService.consultarTodos(genero);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_242", "Lista consultada de manera exitosa");
+		return new ResponseEntity<>(lista, cabeceras, 242);
+	}
+
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Profesor> consultar(@PathVariable Integer id) {
+		Profesor profesor = this.profesorService.consultar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(profesor);
+	}
+
 	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/profesores/i
 	public void actualizar(@RequestBody Profesor profesor, @PathVariable Integer id) {
+		profesor.setId(id);
 		this.profesorService.actualizar(profesor);
 	}
 
 	@PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/profesores/1
 	public void actualizarParcial(@RequestBody Profesor profesor, @PathVariable Integer id) {
-		this.profesorService.actualizarParcial(profesor.getNombre(), profesor.getApellido(), id);
+		this.profesorService.actualizarParcial(profesor.getAsignatura(), id);
 	}
 
-	@DeleteMapping(path = "/{id}" ,consumes = MediaType.ALL_VALUE)
-	// http://localhost:8080/API/v1.0/Matricula/profesores/1
+	@DeleteMapping(path = "/{id}", consumes = MediaType.ALL_VALUE)
 	public void eliminar(@PathVariable Integer id) {
 		this.profesorService.borrar(id);
 	}
-
 }

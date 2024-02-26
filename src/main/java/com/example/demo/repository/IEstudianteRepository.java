@@ -4,20 +4,19 @@ import java.util.List;
 
 import com.example.demo.repository.modelo.Estudiante;
 
-public interface IEstudianteRepo {
+public interface IEstudianteRepository {
 
+	// CRUD
+	// Create, Read, Uopdate, Delete
 	public void insertar(Estudiante estudiante);
 
 	public void actualizar(Estudiante estudiante);
 
-	public void actualizarParcial(String nombre, String apellido, Integer id);
+	public void actualizarParcial(String apellido, String nombre, Integer id);
 
 	public Estudiante seleccionar(Integer id);
 
-	public List<Estudiante> getAll(String gen);
-
-	public List<Estudiante> getAllTO();
-
 	public void eliminar(Integer id);
-
+	
+	public List<Estudiante> seleccionarTodos(String generop);
 }

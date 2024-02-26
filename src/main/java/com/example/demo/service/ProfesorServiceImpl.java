@@ -5,49 +5,49 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.IProfesorRepo;
+import com.example.demo.repository.IProfesorRepository;
 import com.example.demo.repository.modelo.Profesor;
 
 @Service
-public class ProfesorServiceImpl implements IprofesorService {
-
+public class ProfesorServiceImpl implements IProfesorService{
+	
 	@Autowired
-	private IProfesorRepo profesorRepo;
+	private IProfesorRepository profesorRepository;
 
 	@Override
 	public void guardar(Profesor profesor) {
 		// TODO Auto-generated method stub
-		this.profesorRepo.insertar(profesor);
+		this.profesorRepository.insertar(profesor);
 	}
 
 	@Override
 	public void actualizar(Profesor profesor) {
 		// TODO Auto-generated method stub
-		this.profesorRepo.actualizar(profesor);
+		this.profesorRepository.actualizar(profesor);
 	}
 
 	@Override
-	public void actualizarParcial(String nombre, String apellido, Integer id) {
+	public void actualizarParcial(String asignatura, Integer id) {
 		// TODO Auto-generated method stub
-		this.profesorRepo.actualizarParcial(nombre, apellido, id);
+		this.profesorRepository.actualizarParcial(asignatura, id);
 	}
 
 	@Override
-	public Profesor buscar(Integer id) {
+	public Profesor consultar(Integer id) {
 		// TODO Auto-generated method stub
-		return this.profesorRepo.seleccionar(id);
+		return this.profesorRepository.seleccionar(id);
 	}
 
 	@Override
-	public List<Profesor> buscarTodos(String gen) {
+	public List<Profesor> consultarTodos(String genero) {
 		// TODO Auto-generated method stub
-		return this.profesorRepo.getAll(gen);
+		return this.profesorRepository.seleccionarTodos(genero);
 	}
 
 	@Override
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
-		this.profesorRepo.eliminar(id);
-	}	
+		this.profesorRepository.eliminar(id);
+	}
 
 }
